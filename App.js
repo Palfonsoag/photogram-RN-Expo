@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import NonAuthRoutes from "./src/Components/NonAuth/NonAuthRoutes";
-
+import TabNavigator from "./src/Components/Auth/AuthRoutes";
 class App extends Component {
   constructor() {
     super();
@@ -12,7 +12,8 @@ class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <NonAuthRoutes />
+        {/*<NonAuthRoutes />*/}
+        <TabNavigator />
       </View>
     );
   }
