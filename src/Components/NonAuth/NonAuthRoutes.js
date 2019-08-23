@@ -6,7 +6,7 @@ const SignIn = ({ navigation }) => {
   //const navigation = props.navigation;
 
   return (
-    <View>
+    <View style={{ flex: 1, alignItems: "center", marginTop: 40 }}>
       <Text>Soy un el SignIn</Text>
       <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
         <Text>Ir al SignUp</Text>
@@ -18,7 +18,7 @@ const SignUp = ({ navigation }) => {
   //const navigation = props.navigation;
 
   return (
-    <View>
+    <View style={{ flex: 1, alignItems: "center", marginTop: 40 }}>
       <Text>Soy el SignUp</Text>
       <TouchableOpacity onPress={() => navigation.goBack()}>
         <Text>Volver al SignIn</Text>
