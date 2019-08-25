@@ -6,7 +6,7 @@ import {
 import Add from "./AddView/Add";
 import Follow from "./FollowView/Follow";
 import StackHome from "./Stacks/HomeStack";
-import StackSearch from "./Stacks/StackSearch";
+import StackSearch from "./Stacks/SearchStack";
 import Profile from "./ProfileView/Profile";
 import Search from "./SearchView/Search";
 import Comments from "./CommentsView/Comments";
@@ -28,10 +28,15 @@ const TabNavigator = createBottomTabNavigator(
 
 const AuthRoutes = createStackNavigator(
   {
-    Tabs: TabNavigator,
+    Tabs: {
+      screen: TabNavigator,
+      navigationOptions: ({ navigation }) => ({
+        header: null
+      })
+    },
     Comments: Comments
   },
-  { headerMode: "none", initialRouteName: "Tabs" }
+  { initialRouteName: "Tabs" }
 );
 
 export default createAppContainer(AuthRoutes);

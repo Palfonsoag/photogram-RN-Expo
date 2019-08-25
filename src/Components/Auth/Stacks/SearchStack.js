@@ -1,15 +1,15 @@
 import { createStackNavigator } from "react-navigation";
-import Home from "../HomeView/Home";
-import Author from "../ProfileView/Profile";
+import Search from "../SearchView/Search";
 import Publication from "../PublicationView/Publication";
+import Author from "../ProfileView/Profile";
 
 //we already use 'createAppContainer' when we create the TabNavigator in src/AuthRoutes.js
 //so, we do not need to add this wrapper this time, if we use this, return us an error
 
 const StackSearch = createStackNavigator({
-  Home: { screen: Home },
-  Author: { screen: Author },
-  Publication: { screen: Publication }
+  Search: Search,
+  Publication: Publication,
+  Author: Author
 });
 
 export default StackSearch;
