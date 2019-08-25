@@ -6,10 +6,10 @@ import Publication from "../PublicationView/Publication";
 //we already use 'createAppContainer' when we create the TabNavigator in src/AuthRoutes.js
 //so, we do not need to add this wrapper this time, if we use this, return us an error
 
-const StackHome = createStackNavigator({
+const StackSearch = createStackNavigator({
   Home: { screen: Home },
   Author: { screen: Author },
   Publication: { screen: Publication }
 });
 
-export default StackHome;
+export default StackSearch;

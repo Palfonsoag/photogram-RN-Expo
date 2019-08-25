@@ -6,6 +6,7 @@ import {
 import Add from "./AddView/Add";
 import Follow from "./FollowView/Follow";
 import StackHome from "./Stacks/HomeStack";
+import StackSearch from "./Stacks/StackSearch";
 import Profile from "./ProfileView/Profile";
 import Search from "./SearchView/Search";
 import Comments from "./CommentsView/Comments";
@@ -14,11 +15,11 @@ import Comments from "./CommentsView/Comments";
 
 const TabNavigator = createBottomTabNavigator(
   {
-    Add: { screen: Add },
-    Home: { screen: StackHome },
-    Follow: { screen: Follow },
-    Search: { screen: Search },
-    Profile: { screen: Profile }
+    Add: Add,
+    Home: StackHome,
+    Follow: Follow,
+    Search: StackSearch,
+    Profile: Profile
   },
   {
     initialRouteName: "Home"

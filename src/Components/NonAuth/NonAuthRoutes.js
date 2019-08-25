@@ -28,12 +28,8 @@ const SignUp = ({ navigation }) => {
 };
 const NonAuthRoutes = createStackNavigator(
   {
-    SignIn: {
-      screen: SignIn
-    },
-    SignUp: {
-      screen: SignUp
-    }
+    SignIn: SignIn,
+    SignUp: SignUp
   },
   { headerMode: "none", initialRouteName: "SignIn" }
 );
