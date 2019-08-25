@@ -10,8 +10,7 @@ import Comments from "../CommentsView/Comments";
 const StackHome = createStackNavigator({
   Home: { screen: Home },
   Author: { screen: Author },
-  Publication: { screen: Publication },
-  Comments: { screen: Comments }
+  Publication: { screen: Publication }
 });
 
 export default StackHome;

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 class Home extends Component {
   constructor(props) {
@@ -8,9 +8,17 @@ class Home extends Component {
   }
 
   render() {
+    const { navigation } = this.props;
+
     return (
       <View style={styles.container}>
         <Text> Home </Text>
+        <TouchableOpacity onPress={() => navigation.navigate("Author")}>
+          <Text>Author</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Comments")}>
+          <Text>Comments</Text>
+        </TouchableOpacity>
       </View>
     );
   }
