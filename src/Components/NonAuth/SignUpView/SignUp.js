@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 class SignUp extends Component {
@@ -28,4 +29,11 @@ const styles = StyleSheet.create({
   }
 });
 
-export default SignUp;
+const mapStateTopProps = state => {
+  return {};
+};
+
+export default connect(
+  mapStateTopProps,
+  {}
+)(SignUp);
