@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import SignUpForm from "./SignUpForm";
 
 class SignUp extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class SignUp extends Component {
     return (
       <View style={styles.container}>
         <Text> SignUp </Text>
+        <SignUpForm></SignUpForm>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Text>Volver al SignIn</Text>
         </TouchableOpacity>
