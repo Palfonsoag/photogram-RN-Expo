@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import SignInForm from "./SignInForm";
 
 class SignIn extends Component {
   constructor(props) {
@@ -12,6 +13,7 @@ class SignIn extends Component {
     return (
       <View style={styles.container}>
         <Text> SignIn </Text>
+        <SignInForm></SignInForm>
         <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
           <Text>Ir al SignUp</Text>
         </TouchableOpacity>

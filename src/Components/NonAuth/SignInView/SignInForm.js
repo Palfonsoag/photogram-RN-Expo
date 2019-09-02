@@ -55,36 +55,13 @@ const validate = values => {
   ) {
     errors.password = "Password length must be between 5 and 15 characters";
   }
-  if (!values.confirmation) {
-    errors.confirmation = "Required";
-  }
-  if (
-    values.confirmation &&
-    (values.confirmation.length < 5 || values.confirmation.length > 15)
-  ) {
-    errors.confirmation =
-      "Password Confirmation length must be between 5 and 15 characters";
-  }
-
-  if (
-    values.password &&
-    values.confirmation &&
-    values.password !== values.confirmation
-  ) {
-    errors.confirmation = "Your passwords must match";
-  }
 
   return errors;
 };
 
-const SignUpForm = props => {
+const SignInForm = props => {
   return (
     <View>
-      <Field
-        name={"name"}
-        component={fieldComponent}
-        placeholder={"Name"}
-      ></Field>
       <Field
         name={"email"}
         component={fieldComponent}
@@ -99,16 +76,9 @@ const SignUpForm = props => {
         secureTextEntry
         autoCapitalize={"none"}
       ></Field>
-      <Field
-        name={"confirmation"}
-        component={fieldComponent}
-        placeholder={"Password Confirmation"}
-        secureTextEntry
-        autoCapitalize={"none"}
-      ></Field>
 
       <Button
-        title={"Register"}
+        title={"Log In"}
         onPress={props.handleSubmit(values => {
           console.log(values);
         })}
@@ -117,4 +87,4 @@ const SignUpForm = props => {
   );
 };
 
-export default reduxForm({ form: "SignUpForm", validate })(SignUpForm);
+export default reduxForm({ form: "SignInForm", validate })(SignInForm);
