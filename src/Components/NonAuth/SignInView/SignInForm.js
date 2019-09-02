@@ -39,7 +39,7 @@ const validate = values => {
   if (!values.name) {
     errors.name = "Required";
   }
-  if (values.name && (values.name.length < 5 || values.name.length > 10)) {
+  if (values.name && (values.name.length < 6 || values.name.length > 10)) {
     errors.name = "Name length must be between 5 and 10 characters";
   }
   if (!values.email) {

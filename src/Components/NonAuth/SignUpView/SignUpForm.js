@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, TextInput, Button } from "react-native";
 import { Field, reduxForm } from "redux-form";
+import { authentication } from "../../../Store/Services/Firebase";
 
 const fieldComponent = ({
   input,
@@ -55,7 +56,7 @@ const validate = values => {
   }
   if (
     values.password &&
-    (values.password.length < 5 || values.password.length > 15)
+    (values.password.length < 6 || values.password.length > 15)
   ) {
     errors.password = "Password length must be between 5 and 15 characters";
   }
@@ -64,7 +65,7 @@ const validate = values => {
   }
   if (
     values.confirmation &&
-    (values.confirmation.length < 5 || values.confirmation.length > 15)
+    (values.confirmation.length < 6 || values.confirmation.length > 15)
   ) {
     errors.confirmation =
       "Password Confirmation length must be between 5 and 15 characters";
@@ -114,7 +115,16 @@ const SignUpForm = props => {
       <Button
         title={"Register"}
         onPress={props.handleSubmit(values => {
-          console.log(values);
+          console.log("values", values);
+          authentication
+            .createUserWithEmailAndPassword(values.email, values.password)
+            .then(success => console.log("response on success", success))
+            .catch(error => {
+              console.log("response on fail", error);
+              //var errorCode = error.code;
+              //var errorMessage = error.message;
+              // ...
+            });
         })}
       ></Button>
       <View style={styles.buttonSpacer}></View>
