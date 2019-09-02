@@ -20,8 +20,12 @@ const fieldComponent = ({
         secureTextEntry={secureTextEntry}
         autoCapitalize={autoCapitalize && autoCapitalize}
         onBlur={input.onBlur}
+        style={styles.textInput}
       ></TextInput>
-      <Text>{meta.touched && meta.error && meta.error}</Text>
+      <View style={styles.separator}></View>
+      <Text style={styles.errorMessage}>
+        {meta.touched && meta.error && meta.error}
+      </Text>
     </React.Fragment>
   );
 };
@@ -113,8 +117,18 @@ const SignUpForm = props => {
           console.log(values);
         })}
       ></Button>
+      <View style={styles.buttonSpacer}></View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  textInput: {
+    marginBottom: 15
+  },
+  separator: { height: 2, width: "100%", backgroundColor: "#DCDCDC" },
+  buttonSpacer: { height: 15 },
+  errorMessage: { color: "red", fontSize: 16 }
+});
 
 export default reduxForm({ form: "SignUpForm", validate })(SignUpForm);

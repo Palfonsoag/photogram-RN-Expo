@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Button } from "react-native";
 import SignUpForm from "./SignUpForm";
-
+import Header from "../../Common/Header";
 class SignUp extends Component {
   constructor(props) {
     super(props);
@@ -12,13 +12,12 @@ class SignUp extends Component {
   render() {
     const { navigation } = this.props;
     return (
-      <View style={styles.container}>
-        <Text> SignUp </Text>
-        <SignUpForm></SignUpForm>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Text>Volver al SignIn</Text>
-        </TouchableOpacity>
-      </View>
+      <React.Fragment>
+        <Header onLeftSectionPress={() => navigation.goBack()} />
+        <View style={styles.container}>
+          <SignUpForm />
+        </View>
+      </React.Fragment>
     );
   }
 }
@@ -27,7 +26,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     justifyContent: "center",
-    alignItems: "center"
+    paddingHorizontal: 16
   }
 });
 
