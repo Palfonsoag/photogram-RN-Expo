@@ -9,13 +9,17 @@ class SignUp extends Component {
     this.state = {};
   }
 
+  _register = values => {
+    console.log(values);
+  };
+
   render() {
     const { navigation } = this.props;
     return (
       <React.Fragment>
         <Header onLeftSectionPress={() => navigation.goBack()} />
         <View style={styles.container}>
-          <SignUpForm />
+          <SignUpForm registerAction={this._register} />
         </View>
       </React.Fragment>
     );

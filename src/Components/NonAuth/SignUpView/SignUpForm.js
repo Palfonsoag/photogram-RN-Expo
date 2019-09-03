@@ -114,7 +114,9 @@ const SignUpForm = props => {
 
       <Button
         title={"Register"}
-        onPress={props.handleSubmit(values => {
+        onPress={props.handleSubmit(
+          props.registerAction
+          /*values => {
           console.log("values", values);
           authentication
             .createUserWithEmailAndPassword(values.email, values.password)
@@ -125,7 +127,8 @@ const SignUpForm = props => {
               //var errorMessage = error.message;
               // ...
             });
-        })}
+        }*/
+        )}
       ></Button>
       <View style={styles.buttonSpacer}></View>
     </View>
