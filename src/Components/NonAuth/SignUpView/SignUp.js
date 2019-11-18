@@ -10,7 +10,7 @@ class SignUp extends Component {
   }
 
   _register = values => {
-    console.log(values);
+    this.props.registro(values);
   };
 
   render() {
@@ -38,7 +38,9 @@ const mapStateTopProps = state => {
   return {};
 };
 
-export default connect(
-  mapStateTopProps,
-  {}
-)(SignUp);
+const mapDispatchToProps = dispatch => ({
+  registro: values => {
+    dispatch({ type: "REGISTRO", datos: values });
+  }
+});
+export default connect(mapStateTopProps, mapDispatchToProps)(SignUp);

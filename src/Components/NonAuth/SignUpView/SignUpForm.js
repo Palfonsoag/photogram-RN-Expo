@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, TextInput, Button } from "react-native";
 import { Field, reduxForm } from "redux-form";
-import { authentication } from "../../../Store/Services/Firebase";
 
 const fieldComponent = ({
   input,
@@ -118,15 +117,7 @@ const SignUpForm = props => {
           props.registerAction
           /*values => {
           console.log("values", values);
-          authentication
-            .createUserWithEmailAndPassword(values.email, values.password)
-            .then(success => console.log("response on success", success))
-            .catch(error => {
-              console.log("response on fail", error);
-              //var errorCode = error.code;
-              //var errorMessage = error.message;
-              // ...
-            });
+          
         }*/
         )}
       ></Button>
