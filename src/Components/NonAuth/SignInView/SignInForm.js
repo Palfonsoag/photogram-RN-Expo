@@ -83,9 +83,7 @@ const SignInForm = props => {
 
       <Button
         title={"Log In"}
-        onPress={props.handleSubmit(values => {
-          console.log(values);
-        })}
+        onPress={props.handleSubmit(props.login)}
       ></Button>
       <View style={styles.buttonSpacer}></View>
     </View>

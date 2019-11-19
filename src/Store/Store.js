@@ -1,7 +1,7 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import { reducer as reduxForm } from "redux-form";
 import createSagaMiddleWare from "redux-saga";
-import funcionPrimaria from "./Sagas/Sagas";
+import { sagas } from "./Sagas/Sagas";
 
 const reducerTest = (state = [], action) => state;
 
@@ -17,5 +17,5 @@ const store = createStore(
   composeEnhancers(applyMiddleware(sagaMiddleWare))
 );
 
-sagaMiddleWare.run(funcionPrimaria);
+sagaMiddleWare.run(sagas);
 export default store;

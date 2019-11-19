@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { View, Text, StyleSheet, TouchableOpacity, Button } from "react-native";
+import { registerAction } from "../../../Store/Actions/RegisterActions";
 import SignUpForm from "./SignUpForm";
 import Header from "../../Common/Header";
 class SignUp extends Component {
@@ -40,7 +41,7 @@ const mapStateTopProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   registro: values => {
-    dispatch({ type: "REGISTRO", datos: values });
+    dispatch(registerAction(values));
   }
 });
 export default connect(mapStateTopProps, mapDispatchToProps)(SignUp);
