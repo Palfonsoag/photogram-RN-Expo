@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-
+import { View, Text, StyleSheet, TouchableOpacity, Button } from "react-native";
+import { authentication } from "../../../Store/Services/Firebase";
 class Profile extends Component {
   constructor(props) {
     super(props);
@@ -15,6 +15,12 @@ class Profile extends Component {
         <TouchableOpacity onPress={() => navigation.navigate("Publication")}>
           <Text>Publication</Text>
         </TouchableOpacity>
+        <Button
+          title={"Log Out"}
+          onPress={() => {
+            authentication.signOut();
+          }}
+        ></Button>
       </View>
     );
   }

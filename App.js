@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 import Store from "./src/Store/Store";
 import NonAuthRoutes from "./src/Components/NonAuth/NonAuthRoutes";
 import TabNavigator from "./src/Components/Auth/AuthRoutes";
+import RoutesDispatcher from "./src/Components/RoutesDispatcher";
 class App extends Component {
   constructor() {
     super();
@@ -15,7 +16,7 @@ class App extends Component {
     return (
       <View style={styles.container}>
         <Provider store={Store}>
-          <NonAuthRoutes />
+          <RoutesDispatcher />
         </Provider>
         {/*<NonAuthRoutes />*/}
       </View>
