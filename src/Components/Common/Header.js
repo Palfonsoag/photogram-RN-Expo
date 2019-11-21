@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   leftSection: {
-    paddingTop: 20,
+    paddingTop: 10,
     paddingRight: 25,
     width: "25%",
     height: "100%",

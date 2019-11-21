@@ -12,7 +12,7 @@ const sessionReducer = (state = null, action) => {
     case LOGIN_ACTIONS.CHECK_SESSION:
       return { ...state, ...action.payload };
     case LOGIN_ACTIONS.LOGOUT:
-      return { ...state, ...SessionInitialState };
+      return { ...SessionInitialState };
     default:
       return { ...state };
   }

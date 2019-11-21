@@ -21,7 +21,7 @@ class RoutesDispatcher extends Component {
     console.log(this.props.session);
     return (
       <View style={styles.container}>
-        {this.props.session.uid !== "" ? <TabNavigator /> : <NonAuthRoutes />}
+        {!this.props.session.uid ? <NonAuthRoutes /> : <TabNavigator />}
       </View>
     );
   }

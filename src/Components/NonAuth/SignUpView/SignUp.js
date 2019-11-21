@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Button } from "react-native";
 import { registerAction } from "../../../Store/Actions/RegisterActions";
 import SignUpForm from "./SignUpForm";
 import Header from "../../Common/Header";
+import ImageSelect from "../../Common/ImageSelect";
 class SignUp extends Component {
   constructor(props) {
     super(props);
@@ -20,6 +21,7 @@ class SignUp extends Component {
       <React.Fragment>
         <Header onLeftSectionPress={() => navigation.goBack()} />
         <View style={styles.container}>
+          <ImageSelect />
           <SignUpForm registerAction={this._register} />
         </View>
       </React.Fragment>
