@@ -7,6 +7,7 @@ const firebaseRegister = values =>
   authentication
     .createUserWithEmailAndPassword(values.email, values.password)
     .then(success => JSON.parse(JSON.stringify(success)));
+
 const dataBaseRegister = ({ uid, email, name }) =>
   dataBase.ref("usuarios/" + uid).set({ email, nombre: name });
 

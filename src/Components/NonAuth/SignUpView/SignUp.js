@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { blur, change } from "redux-form";
 import { View, Text, StyleSheet, TouchableOpacity, Button } from "react-native";
 import {
   registerAction,
@@ -28,7 +29,7 @@ class SignUp extends Component {
         <Header onLeftSectionPress={() => navigation.goBack()} />
         <View style={styles.container}>
           <ImageSelect image={image} uploadImage={uploadImage} />
-          <SignUpForm registerAction={this._register} />
+          <SignUpForm registerAction={this._register} image={image} />
         </View>
       </React.Fragment>
     );
@@ -53,6 +54,7 @@ const mapDispatchToProps = dispatch => ({
   },
   uploadImage: values => {
     dispatch(uploadSignUpImage(values));
+    dispatch(blur("SignUpForm", "image", Date.now()));
   },
   clearImage: () => {
     dispatch(clearSignUpImage());

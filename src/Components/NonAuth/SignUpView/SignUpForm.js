@@ -30,11 +30,15 @@ const fieldComponent = ({
   );
 };
 
-const validate = values => {
+const validate = (values, props) => {
   const errors = {};
   let patt = new RegExp(
     '^(([^<>()\\[\\]\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$'
   );
+
+  if (!props.image) {
+    errors.image = "The image is Required";
+  }
 
   if (!values.name) {
     errors.name = "Required";
@@ -81,9 +85,20 @@ const validate = values => {
   return errors;
 };
 
+const fieldImage = ({ input, meta }) => {
+  return (
+    <View>
+      <Text style={styles.errorMessage}>
+        {meta.touched && meta.error && meta.error}
+      </Text>
+    </View>
+  );
+};
+
 const SignUpForm = props => {
   return (
     <View style={{ flex: 3 }}>
+      <Field name={"image"} component={fieldImage} placeholder={"Name"}></Field>
       <Field
         name={"name"}
         component={fieldComponent}
@@ -113,13 +128,7 @@ const SignUpForm = props => {
 
       <Button
         title={"Register"}
-        onPress={props.handleSubmit(
-          props.registerAction
-          /*values => {
-          console.log("values", values);
-          
-        }*/
-        )}
+        onPress={props.handleSubmit(props.registerAction)}
       ></Button>
       <View style={styles.buttonSpacer}></View>
     </View>

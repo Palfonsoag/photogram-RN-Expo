@@ -1,6 +1,7 @@
 import React from "react";
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { EvilIcons, Ionicons } from "@expo/vector-icons";
+
 const Header = ({
   headerContainer,
   onLeftSectionPress,

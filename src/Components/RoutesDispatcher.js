@@ -18,7 +18,6 @@ class RoutesDispatcher extends Component {
     this.props.authentication();
   }
   render() {
-    console.log(this.props.session);
     return (
       <View style={styles.container}>
         {!this.props.session.uid ? <NonAuthRoutes /> : <TabNavigator />}
@@ -43,10 +42,8 @@ const mapDispatchToProps = dispatch => ({
   authentication: () => {
     authentication.onAuthStateChanged(user => {
       if (user) {
-        console.log(JSON.parse(JSON.stringify(user)));
         dispatch(sessionCheckAction(JSON.parse(JSON.stringify(user))));
       } else {
-        console.log("No existe sesion");
         dispatch(logoutAction());
       }
     });
