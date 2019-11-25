@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { View, Text, StyleSheet, TouchableOpacity, Button } from "react-native";
-import { registerAction } from "../../../Store/Actions/RegisterActions";
+import {
+  registerAction,
+  uploadSignUpImage,
+  clearSignUpImage
+} from "../../../Store/Actions/RegisterActions";
 import SignUpForm from "./SignUpForm";
 import Header from "../../Common/Header";
 import ImageSelect from "../../Common/ImageSelect";
@@ -10,18 +14,20 @@ class SignUp extends Component {
     super(props);
     this.state = {};
   }
-
+  componentWillUnmount() {
+    this.props.clearImage();
+  }
   _register = values => {
-    this.props.registro(values);
+    this.props.register(values);
   };
 
   render() {
-    const { navigation } = this.props;
+    const { navigation, image, uploadImage } = this.props;
     return (
       <React.Fragment>
         <Header onLeftSectionPress={() => navigation.goBack()} />
         <View style={styles.container}>
-          <ImageSelect />
+          <ImageSelect image={image} uploadImage={uploadImage} />
           <SignUpForm registerAction={this._register} />
         </View>
       </React.Fragment>
@@ -38,12 +44,18 @@ const styles = StyleSheet.create({
 });
 
 const mapStateTopProps = state => {
-  return {};
+  return { image: state.signUpImage.image };
 };
 
 const mapDispatchToProps = dispatch => ({
-  registro: values => {
+  register: values => {
     dispatch(registerAction(values));
+  },
+  uploadImage: values => {
+    dispatch(uploadSignUpImage(values));
+  },
+  clearImage: () => {
+    dispatch(clearSignUpImage());
   }
 });
 export default connect(mapStateTopProps, mapDispatchToProps)(SignUp);
