@@ -10,17 +10,16 @@ import {
 import * as ImagePicker from "expo-image-picker";
 import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
-
+const getPermissionAsync = async () => {
+  if (Constants.platform.ios) {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    if (status !== "granted") {
+      alert("Sorry, we need camera roll permissions to make this work!");
+    }
+  }
+};
 const ImageSelect = ({ image, uploadImage }) => {
-  // getPermissionAsync = async () => {
-  //   if (Constants.platform.ios) {
-  //     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-  //     if (status !== "granted") {
-  //       alert("Sorry, we need camera roll permissions to make this work!");
-  //     }
-  //   }
-  // };
-
+  getPermissionAsync();
   const _pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -29,11 +28,9 @@ const ImageSelect = ({ image, uploadImage }) => {
       quality: 1
     });
 
-    console.log(result);
-
     if (!result.cancelled) {
       // this.setState({ image: result.uri });
-      uploadImage(result.uri);
+      uploadImage(result);
     }
   };
 
@@ -42,7 +39,7 @@ const ImageSelect = ({ image, uploadImage }) => {
       <TouchableOpacity onPress={_pickImage}>
         {image ? (
           <Image
-            source={{ uri: image }}
+            source={{ uri: image.uri }}
             style={{ width: 160, height: 160, borderRadius: 80 }}
           />
         ) : (

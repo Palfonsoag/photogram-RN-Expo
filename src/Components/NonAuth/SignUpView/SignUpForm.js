@@ -98,7 +98,7 @@ const fieldImage = ({ input, meta }) => {
 const SignUpForm = props => {
   return (
     <View style={{ flex: 3 }}>
-      <Field name={"image"} component={fieldImage} placeholder={"Name"}></Field>
+      <Field name={"image"} component={fieldImage}></Field>
       <Field
         name={"name"}
         component={fieldComponent}
@@ -115,14 +115,14 @@ const SignUpForm = props => {
         name={"password"}
         component={fieldComponent}
         placeholder={"Password"}
-        secureTextEntry
+        //secureTextEntry
         autoCapitalize={"none"}
       ></Field>
       <Field
         name={"confirmation"}
         component={fieldComponent}
         placeholder={"Password Confirmation"}
-        secureTextEntry
+        //secureTextEntry
         autoCapitalize={"none"}
       ></Field>
 
