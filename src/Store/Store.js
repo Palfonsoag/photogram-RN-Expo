@@ -5,10 +5,10 @@ import { sagas } from "./Sagas/Sagas";
 import { LOGIN_ACTIONS } from "./Actions/LoginActions";
 import { REGISTER_ACTIONS } from "./Actions/RegisterActions";
 import { ADD_PICTURES_ACTIONS } from "./Actions/AddPictureActions";
-
-const reducerTest = (state = [], action) => state;
+import { HOME_ACTIONS } from "./Actions/HomeActions";
 
 const SessionInitialState = { uid: "" };
+
 const sessionReducer = (state = SessionInitialState, action) => {
   switch (action.type) {
     case LOGIN_ACTIONS.CHECK_SESSION:
@@ -31,6 +31,16 @@ const imageSignUpReducer = (state = { image: null }, action) => {
   }
 };
 
+const homeFeedPublications = (state = [], action) => {
+  switch (action.type) {
+    case HOME_ACTIONS.SET_HOME_FEED:
+      return { ...state, feed: action.payload };
+
+    default:
+      return { ...state };
+  }
+};
+
 const publicationImageReducer = (state = { image: null }, action) => {
   switch (action.type) {
     case ADD_PICTURES_ACTIONS.UPLOAD_IMAGE:
@@ -43,11 +53,11 @@ const publicationImageReducer = (state = { image: null }, action) => {
 };
 
 const reducers = combineReducers({
-  reducerTest,
   form: reduxForm,
   session: sessionReducer,
   signUpImage: imageSignUpReducer,
-  publicationImage: publicationImageReducer
+  publicationImage: publicationImageReducer,
+  homeFeed: homeFeedPublications
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

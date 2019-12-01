@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+  Image
+} from "react-native";
 
 class Publication extends Component {
   constructor(props) {
@@ -8,16 +15,21 @@ class Publication extends Component {
   }
 
   render() {
-    const { navigation } = this.props;
+    const { navigation, item } = this.props;
+    const { width } = Dimensions.get("window");
+    const factor = item.width / width;
+    const height = item.height / factor;
     return (
-      <View style={styles.container}>
-        <Text> Publication </Text>
+      <View>
+        <Image source={{ uri: item.secure_url }} style={{ width, height }} />
+
+        {/* <Text> Publication </Text>
         <TouchableOpacity onPress={() => navigation.navigate("Author")}>
           <Text>Author</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("Comments")}>
           <Text>Comments</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     );
   }

@@ -1,10 +1,10 @@
-import { takeEvery, call, select } from "redux-saga/effects";
+import { takeEvery, call, select, put } from "redux-saga/effects";
 import { authentication, dataBase } from "../Services/Firebase";
 import { cloudinaryConfig } from "../Services/Cloudinary";
 import { LOGIN_ACTIONS } from "../Actions/LoginActions";
 import { REGISTER_ACTIONS } from "../Actions/RegisterActions";
 import { ADD_PICTURES_ACTIONS } from "../Actions/AddPictureActions";
-import { HOME_ACTIONS } from "../Actions/HomeActions";
+import { HOME_ACTIONS, setFeedPublications } from "../Actions/HomeActions";
 
 const firebaseRegister = values =>
   authentication
@@ -35,7 +35,13 @@ const getFeed = () =>
   dataBase
     .ref("publications/")
     .once("value")
-    .then(response => response.val());
+    .then(response => {
+      let publications = [];
+      response.forEach(snapshot => {
+        publications.push({ ...snapshot.val(), key: snapshot.key });
+      });
+      return publications;
+    });
 
 const cloudinaryPictureRegister = image => {
   const { uri, type } = image;
@@ -111,7 +117,7 @@ function* submitPublicationSaga(values) {
 function* getFeedSaga() {
   try {
     const publications = yield call(getFeed);
-    console.log(publications);
+    yield put(setFeedPublications(publications));
   } catch (error) {
     console.log("fail on get feed", error);
   }

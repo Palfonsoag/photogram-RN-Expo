@@ -1,6 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  FlatList,
+  Image,
+  Dimensions
+} from "react-native";
+import Publication from "../PublicationView/Publication";
 import { getFeedPublications } from "../../../Store/Actions/HomeActions";
 class Home extends Component {
   constructor(props) {
@@ -12,16 +21,20 @@ class Home extends Component {
   }
   render() {
     const { navigation } = this.props;
-
+    console.log(this.props.feed);
     return (
       <View style={styles.container}>
-        <Text> Home </Text>
+        <FlatList
+          data={this.props.feed}
+          renderItem={({ item }) => <Publication item={item} />}
+        />
+        {/*
         <TouchableOpacity onPress={() => navigation.navigate("Author")}>
           <Text>Author</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("Comments")}>
           <Text>Comments</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     );
   }
@@ -32,12 +45,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    paddingTop: 24
   }
 });
 
 const mapStateTopProps = state => {
-  return {};
+  return { feed: state.homeFeed.feed };
 };
 
 const mapDispatchToProps = dispatch => ({
