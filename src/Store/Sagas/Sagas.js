@@ -15,11 +15,20 @@ const dataBaseRegister = ({ uid, email, name, profilePicSecUrl }) =>
     .ref("usuarios/" + uid)
     .set({ email, nombre: name, urlPerfil: profilePicSecUrl });
 
-const submitPictureToFirebase = ({ width, height, secure_url }, caption = "") =>
+const submitPictureToFirebase = (
+  { width, height, secure_url, uid },
+  caption = ""
+) =>
   dataBase
     .ref("publications/")
-    .push({ width, height, secure_url, caption })
-    .then(response => JSON.parse(JSON.stringify(response)));
+    .push({ width, height, secure_url, uid, caption })
+    .then(response => response);
+
+const setAuthorPublicationRelation = ({ key, uid }) =>
+  dataBase
+    .ref(`author-publication/${uid}`)
+    .update({ [key]: true })
+    .then(response => response);
 
 const cloudinaryPictureRegister = image => {
   const { uri, type } = image;
@@ -66,18 +75,28 @@ function* loginSaga(values) {
 function* submitPublicationSaga(values) {
   try {
     const image = yield select(state => state.publicationImage.image);
+    const uid = yield select(state => state.session.uid);
+
     const publicationPicUrl = yield call(cloudinaryPictureRegister, image);
     const { width, height, secure_url } = publicationPicUrl;
     const params = {
       width,
       height,
-      secure_url
+      secure_url,
+      uid
     };
     const submitToFirebase = yield call(
       submitPictureToFirebase,
       params,
       values.payload.caption
     );
+    const { key } = submitToFirebase;
+
+    const authorPublication = yield call(setAuthorPublicationRelation, {
+      key,
+      uid
+    });
+    console.log(authorPublication);
   } catch (error) {
     console.log("fail on login", error);
   }
