@@ -3,8 +3,7 @@ import {
   createAppContainer,
   createStackNavigator
 } from "react-navigation";
-import Add from "./AddView/Add";
-import Follow from "./FollowView/Follow";
+import StackAdd from "./Stacks/AddStack";
 import StackHome from "./Stacks/HomeStack";
 import StackSearch from "./Stacks/SearchStack";
 import StackFollow from "./Stacks/FollowStack";
@@ -17,7 +16,7 @@ const TabNavigator = createBottomTabNavigator(
   {
     Home: StackHome,
     Follow: StackFollow,
-    Add: Add,
+    Add: StackAdd,
     Search: StackSearch,
     Profile: Profile
   },

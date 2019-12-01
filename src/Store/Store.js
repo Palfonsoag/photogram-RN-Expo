@@ -4,11 +4,12 @@ import createSagaMiddleWare from "redux-saga";
 import { sagas } from "./Sagas/Sagas";
 import { LOGIN_ACTIONS } from "./Actions/LoginActions";
 import { REGISTER_ACTIONS } from "./Actions/RegisterActions";
+import { ADD_PICTURES_ACTIONS } from "./Actions/AddPictureActions";
 
 const reducerTest = (state = [], action) => state;
 
 const SessionInitialState = { uid: "" };
-const sessionReducer = (state = null, action) => {
+const sessionReducer = (state = SessionInitialState, action) => {
   switch (action.type) {
     case LOGIN_ACTIONS.CHECK_SESSION:
       return { ...state, ...action.payload };
@@ -30,11 +31,23 @@ const imageSignUpReducer = (state = { image: null }, action) => {
   }
 };
 
+const publicationImageReducer = (state = { image: null }, action) => {
+  switch (action.type) {
+    case ADD_PICTURES_ACTIONS.UPLOAD_IMAGE:
+      return { ...state, image: action.payload };
+    case ADD_PICTURES_ACTIONS.CLEAR_IMAGE:
+      return { ...state, image: null };
+    default:
+      return { ...state };
+  }
+};
+
 const reducers = combineReducers({
   reducerTest,
   form: reduxForm,
   session: sessionReducer,
-  signUpImage: imageSignUpReducer
+  signUpImage: imageSignUpReducer,
+  publicationImage: publicationImageReducer
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

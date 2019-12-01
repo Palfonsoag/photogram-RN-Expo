@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Button } from "react-native";
 
 class Add extends Component {
   constructor(props) {
@@ -8,9 +8,15 @@ class Add extends Component {
   }
 
   render() {
+    const { navigation } = this.props;
     return (
       <View style={styles.container}>
-        <Text> Add </Text>
+        <Button
+          title={"Gallery"}
+          onPress={() => navigation.navigate("SelectFromGallery")}
+        />
+        <View style={{ height: 40, width: "100%" }}></View>
+        <Button title={"Camera"} onPress={() => navigation.navigate()} />
       </View>
     );
   }

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { blur, change } from "redux-form";
+import { blur } from "redux-form";
 import { View, Text, StyleSheet, TouchableOpacity, Button } from "react-native";
 import {
   registerAction,
