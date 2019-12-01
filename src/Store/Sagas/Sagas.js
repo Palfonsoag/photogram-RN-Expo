@@ -3,6 +3,7 @@ import { authentication, dataBase } from "../Services/Firebase";
 import { cloudinaryConfig } from "../Services/Cloudinary";
 import { LOGIN_ACTIONS } from "../Actions/LoginActions";
 import { REGISTER_ACTIONS } from "../Actions/RegisterActions";
+import { ADD_PICTURES_ACTIONS } from "../Actions/AddPictureActions";
 
 const firebaseRegister = values =>
   authentication
@@ -14,6 +15,12 @@ const dataBaseRegister = ({ uid, email, name, profilePicSecUrl }) =>
     .ref("usuarios/" + uid)
     .set({ email, nombre: name, urlPerfil: profilePicSecUrl });
 
+const submitPictureToFirebase = ({ width, height, secure_url }, caption = "") =>
+  dataBase
+    .ref("publications/")
+    .push({ width, height, secure_url, caption })
+    .then(response => JSON.parse(JSON.stringify(response)));
+
 const cloudinaryPictureRegister = image => {
   const { uri, type } = image;
   const splitName = uri.split("/");
@@ -24,11 +31,11 @@ const cloudinaryPictureRegister = image => {
   return fetch(cloudinaryConfig.name, { method: "POST", body: pictureFormData })
     .then(response => response.json())
     .catch(error => {
-      console.log(error);
       console.log(error.message);
       return error;
     });
 };
+
 function* registerSaga(values) {
   try {
     const image = yield select(state => state.signUpImage.image);
@@ -51,7 +58,26 @@ const firebaseLogin = ({ email, password }) =>
 function* loginSaga(values) {
   try {
     const login = yield call(firebaseLogin, values.values);
-    //console.log(login);
+  } catch (error) {
+    console.log("fail on login", error);
+  }
+}
+
+function* submitPublicationSaga(values) {
+  try {
+    const image = yield select(state => state.publicationImage.image);
+    const publicationPicUrl = yield call(cloudinaryPictureRegister, image);
+    const { width, height, secure_url } = publicationPicUrl;
+    const params = {
+      width,
+      height,
+      secure_url
+    };
+    const submitToFirebase = yield call(
+      submitPictureToFirebase,
+      params,
+      values.payload.caption
+    );
   } catch (error) {
     console.log("fail on login", error);
   }
@@ -60,4 +86,8 @@ function* loginSaga(values) {
 export function* sagas() {
   yield takeEvery(REGISTER_ACTIONS.REGISTER, registerSaga);
   yield takeEvery(LOGIN_ACTIONS.LOGIN, loginSaga);
+  yield takeEvery(
+    ADD_PICTURES_ACTIONS.SUBMIT_PUBLICATION,
+    submitPublicationSaga
+  );
 }

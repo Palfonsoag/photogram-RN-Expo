@@ -6,7 +6,8 @@ import ImageSelect from "../../Common/ImageSelect";
 import GalleryForm from "./SelectFromGalleryForm";
 import {
   uploadPublicationImage,
-  clearPublicationImage
+  clearPublicationImage,
+  submitPublication
 } from "../../../Store/Actions/AddPictureActions";
 class SelectFromGallery extends Component {
   constructor(props) {
@@ -17,7 +18,9 @@ class SelectFromGallery extends Component {
   componentWillUnmount() {
     this.props.clearImage();
   }
-  _publish = values => {};
+  _publish = values => {
+    this.props.submit(values);
+  };
   render() {
     const { uploadImage, image } = this.props;
     return (
@@ -26,7 +29,7 @@ class SelectFromGallery extends Component {
           <ImageSelect image={image} uploadImage={uploadImage} radius />
         </View>
         <View style={styles.textContainer}>
-          <GalleryForm image={image} publishAction={() => {}} />
+          <GalleryForm image={image} publishAction={this._publish} />
         </View>
       </View>
     );
@@ -61,6 +64,9 @@ const mapDispatchToProps = dispatch => ({
   },
   clearImage: () => {
     dispatch(clearPublicationImage());
+  },
+  submit: values => {
+    dispatch(submitPublication(values));
   }
 });
 export default connect(mapStateTopProps, mapDispatchToProps)(SelectFromGallery);
