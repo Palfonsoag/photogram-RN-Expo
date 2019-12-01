@@ -1,12 +1,15 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-
+import { getFeedPublications } from "../../../Store/Actions/HomeActions";
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
-
+  componentDidMount() {
+    this.props.getPublications();
+  }
   render() {
     const { navigation } = this.props;
 
@@ -32,4 +35,15 @@ const styles = StyleSheet.create({
     alignItems: "center"
   }
 });
-export default Home;
+
+const mapStateTopProps = state => {
+  return {};
+};
+
+const mapDispatchToProps = dispatch => ({
+  getPublications: () => {
+    dispatch(getFeedPublications());
+  }
+});
+
+export default connect(mapStateTopProps, mapDispatchToProps)(Home);

@@ -4,6 +4,7 @@ import { cloudinaryConfig } from "../Services/Cloudinary";
 import { LOGIN_ACTIONS } from "../Actions/LoginActions";
 import { REGISTER_ACTIONS } from "../Actions/RegisterActions";
 import { ADD_PICTURES_ACTIONS } from "../Actions/AddPictureActions";
+import { HOME_ACTIONS } from "../Actions/HomeActions";
 
 const firebaseRegister = values =>
   authentication
@@ -29,6 +30,12 @@ const setAuthorPublicationRelation = ({ key, uid }) =>
     .ref(`author-publication/${uid}`)
     .update({ [key]: true })
     .then(response => response);
+
+const getFeed = () =>
+  dataBase
+    .ref("publications/")
+    .once("value")
+    .then(response => response.val());
 
 const cloudinaryPictureRegister = image => {
   const { uri, type } = image;
@@ -96,9 +103,17 @@ function* submitPublicationSaga(values) {
       key,
       uid
     });
-    console.log(authorPublication);
   } catch (error) {
-    console.log("fail on login", error);
+    console.log("fail on submit publication", error);
+  }
+}
+
+function* getFeedSaga() {
+  try {
+    const publications = yield call(getFeed);
+    console.log(publications);
+  } catch (error) {
+    console.log("fail on get feed", error);
   }
 }
 
@@ -109,4 +124,5 @@ export function* sagas() {
     ADD_PICTURES_ACTIONS.SUBMIT_PUBLICATION,
     submitPublicationSaga
   );
+  yield takeEvery(HOME_ACTIONS.GET_FEED_IMAGES, getFeedSaga);
 }
