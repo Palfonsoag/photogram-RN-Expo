@@ -26,25 +26,36 @@ class SelectFromGallery extends Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.success !== nextProps.success) {
       if (nextProps.success === "SUCCEED") {
-        Alert.alert("SUCCESS", "your publications has been uploaded", [
-          {
-            text: "ok",
-            onPress: () => {
-              this.props.clearState();
-              this.props.navigation.goBack();
+        Alert.alert(
+          "SUCCESS",
+          "your publications has been uploaded",
+          [
+            {
+              text: "ok",
+              onPress: () => {
+                this.props.clearState();
+                this.props.navigation.goBack();
+              }
             }
-          }
-        ]);
+          ],
+          { cancelable: false }
+        );
       }
       if (nextProps.success === "FAIL") {
-        Alert.alert("Error", "error while uploading you publication", [
-          {
-            text: "ok",
-            onPress: () => {
-              this.props.clearState();
+        Alert.alert(
+          "Error",
+          "error while uploading you publication",
+          [
+            {
+              text: "ok",
+              onPress: () => {
+                this.props.clearState();
+                this.props.navigation.goBack();
+              }
             }
-          }
-        ]);
+          ],
+          { cancelable: false }
+        );
       }
     }
   }
