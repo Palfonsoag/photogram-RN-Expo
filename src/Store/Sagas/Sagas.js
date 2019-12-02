@@ -1,10 +1,18 @@
-import { takeEvery, call, select, put } from "redux-saga/effects";
+import { takeEvery, call, select, put, all } from "redux-saga/effects";
 import { authentication, dataBase } from "../Services/Firebase";
 import { cloudinaryConfig } from "../Services/Cloudinary";
 import { LOGIN_ACTIONS } from "../Actions/LoginActions";
 import { REGISTER_ACTIONS } from "../Actions/RegisterActions";
-import { ADD_PICTURES_ACTIONS } from "../Actions/AddPictureActions";
-import { HOME_ACTIONS, setFeedPublications } from "../Actions/HomeActions";
+import {
+  ADD_PICTURES_ACTIONS,
+  setPublicationSucceed,
+  setPublicationFail
+} from "../Actions/AddPictureActions";
+import {
+  HOME_ACTIONS,
+  setFeedPublications,
+  setFeedAuthors
+} from "../Actions/HomeActions";
 
 const firebaseRegister = values =>
   authentication
@@ -42,6 +50,12 @@ const getFeed = () =>
       });
       return publications;
     });
+
+const getPublicationAuthor = uid =>
+  dataBase
+    .ref(`usuarios/${uid}`)
+    .once("value")
+    .then(snapshot => snapshot.val());
 
 const cloudinaryPictureRegister = image => {
   const { uri, type } = image;
@@ -109,14 +123,23 @@ function* submitPublicationSaga(values) {
       key,
       uid
     });
+    yield put(setPublicationSucceed());
   } catch (error) {
     console.log("fail on submit publication", error);
+    yield put(setPublicationFail());
   }
 }
 
 function* getFeedSaga() {
   try {
     const publications = yield call(getFeed);
+
+    const authors = yield all(
+      publications.map(publication =>
+        call(getPublicationAuthor, publication.uid)
+      )
+    );
+    yield put(setFeedAuthors(authors));
     yield put(setFeedPublications(publications));
   } catch (error) {
     console.log("fail on get feed", error);

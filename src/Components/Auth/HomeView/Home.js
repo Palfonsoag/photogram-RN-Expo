@@ -20,13 +20,15 @@ class Home extends Component {
     this.props.getPublications();
   }
   render() {
-    const { navigation } = this.props;
-    console.log(this.props.feed);
+    const { navigation, authors } = this.props;
     return (
       <View style={styles.container}>
         <FlatList
           data={this.props.feed}
-          renderItem={({ item }) => <Publication item={item} />}
+          renderItem={({ item, index }) => (
+            <Publication item={item} author={authors[index]} />
+          )}
+          ItemSeparatorComponent={() => <View style={styles.separator}></View>}
         />
         {/*
         <TouchableOpacity onPress={() => navigation.navigate("Author")}>
@@ -47,11 +49,16 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingTop: 24
+  },
+  separator: {
+    borderWidth: 2,
+    borderColor: "#C0C0C0",
+    marginBottom: 5
   }
 });
 
 const mapStateTopProps = state => {
-  return { feed: state.homeFeed.feed };
+  return { feed: state.homeFeed.feed, authors: state.homeFeed.authors };
 };
 
 const mapDispatchToProps = dispatch => ({

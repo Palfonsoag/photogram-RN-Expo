@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet, Button, Alert } from "react-native";
 import { connect } from "react-redux";
 import { blur } from "redux-form";
 import ImageSelect from "../../Common/ImageSelect";
@@ -7,7 +7,8 @@ import GalleryForm from "./SelectFromGalleryForm";
 import {
   uploadPublicationImage,
   clearPublicationImage,
-  submitPublication
+  submitPublication,
+  clearPublicationState
 } from "../../../Store/Actions/AddPictureActions";
 class SelectFromGallery extends Component {
   constructor(props) {
@@ -21,6 +22,33 @@ class SelectFromGallery extends Component {
   _publish = values => {
     this.props.submit(values);
   };
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.success !== nextProps.success) {
+      if (nextProps.success === "SUCCEED") {
+        Alert.alert("SUCCESS", "your publications has been uploaded", [
+          {
+            text: "ok",
+            onPress: () => {
+              this.props.clearState();
+              this.props.navigation.goBack();
+            }
+          }
+        ]);
+      }
+      if (nextProps.success === "FAIL") {
+        Alert.alert("Error", "error while uploading you publication", [
+          {
+            text: "ok",
+            onPress: () => {
+              this.props.clearState();
+            }
+          }
+        ]);
+      }
+    }
+  }
+
   render() {
     const { uploadImage, image } = this.props;
     return (
@@ -54,7 +82,10 @@ const styles = StyleSheet.create({
 });
 
 const mapStateTopProps = state => {
-  return { image: state.publicationImage.image };
+  return {
+    image: state.publicationImage.image,
+    success: state.publicationImage.success
+  };
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -67,6 +98,9 @@ const mapDispatchToProps = dispatch => ({
   },
   submit: values => {
     dispatch(submitPublication(values));
+  },
+  clearState: () => {
+    dispatch(clearPublicationState());
   }
 });
 export default connect(mapStateTopProps, mapDispatchToProps)(SelectFromGallery);

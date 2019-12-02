@@ -31,22 +31,33 @@ const imageSignUpReducer = (state = { image: null }, action) => {
   }
 };
 
-const homeFeedPublications = (state = [], action) => {
+const homeFeedPublications = (state = { feed: [], authors: [] }, action) => {
   switch (action.type) {
     case HOME_ACTIONS.SET_HOME_FEED:
       return { ...state, feed: action.payload };
+    case HOME_ACTIONS.SET_HOME_FEED_AUTHORS:
+      return { ...state, authors: action.payload };
 
     default:
       return { ...state };
   }
 };
 
-const publicationImageReducer = (state = { image: null }, action) => {
+const publicationImageReducer = (
+  state = { image: null, success: null },
+  action
+) => {
   switch (action.type) {
     case ADD_PICTURES_ACTIONS.UPLOAD_IMAGE:
       return { ...state, image: action.payload };
     case ADD_PICTURES_ACTIONS.CLEAR_IMAGE:
       return { ...state, image: null };
+    case ADD_PICTURES_ACTIONS.SET_PUBLICATION_SUCCEED:
+      return { ...state, success: "SUCCEED" };
+    case ADD_PICTURES_ACTIONS.SET_PUBLICATION_FAIL:
+      return { ...state, success: "FAIL" };
+    case ADD_PICTURES_ACTIONS.CLEAR_PUBLICATION_STATE:
+      return { ...state, success: null };
     default:
       return { ...state };
   }
