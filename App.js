@@ -1,7 +1,10 @@
 import React, { Component } from "react";
+import { Provider } from "react-redux";
 import { StyleSheet, Text, View } from "react-native";
+import Store from "./src/Store/Store";
 import NonAuthRoutes from "./src/Components/NonAuth/NonAuthRoutes";
-
+import TabNavigator from "./src/Components/Auth/AuthRoutes";
+import RoutesDispatcher from "./src/Components/RoutesDispatcher";
 class App extends Component {
   constructor() {
     super();
@@ -12,7 +15,10 @@ class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <NonAuthRoutes />
+        <Provider store={Store}>
+          <RoutesDispatcher />
+        </Provider>
+        {/*<NonAuthRoutes />*/}
       </View>
     );
   }
